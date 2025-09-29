@@ -1,0 +1,52 @@
+version: '3.9'
+
+services:
+  encoder_service:
+    build: ./encoder_service
+    container_name: encoder_service
+    runtime: nvidia  # EKLE
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./encoder_service:/app
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+
+  vectordb_service:
+    build: ./vectordb_service
+    container_name: vectordb_service
+    runtime: nvidia  # EKLE
+    ports:
+      - "8002:8000"
+    volumes:
+      - ./vectordb_service:/app
+      - ./vectordb_service/chroma_db:/app/chroma_db
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+
+  decoder_service:
+    build: ./decoder_service
+    container_name: decoder_service
+    runtime: nvidia  # EKLE
+    ports:
+      - "8003:8000"
+    volumes:
+      - ./decoder_service:/app
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+
+  api_service:
+    build: ./api_service
+    container_name: api_service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api_service:/app
+    depends_on:
+      - encoder_service
+      - vectordb_service
+      - decoder_service
+    environment:
+      - ENCODER_URL=http://encoder_service:8000/embed
+      - DB_URL=http://vectordb_service:8000
+      - DECODER_URL=http://decoder_service:8000/generate

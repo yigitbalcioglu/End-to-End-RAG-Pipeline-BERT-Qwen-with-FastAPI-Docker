@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+transformers
+sentence-transformers
+numpy
+pydantic
+pandas
+chromadb
+fastapi[standard]
+requests
+python-multipart
+pytest
