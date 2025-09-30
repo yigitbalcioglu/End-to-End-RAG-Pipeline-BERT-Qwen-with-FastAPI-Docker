@@ -45,8 +45,7 @@ This project implements a complete RAG pipeline using Docker containerization:
 #### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/rag-pipeline.git
-cd rag-pipeline
+git clone https://github.com/yigitbalcioglu/End-to-End-RAG-Pipeline-BERT-Qwen-with-FastAPI-Docker.git
 ```
 
 #### 2. Project Structure
@@ -478,3 +477,4 @@ For issues and questions:
 ---
 
 **Built with ❤️ using FastAPI, Docker, and Transformers**
+
